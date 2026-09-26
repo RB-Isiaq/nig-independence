@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     state.phase === "celebration"
       ? `Happy ${state.featured.ordinal} Independence Day, Nigeria`
       : `${copy.lead} ${copy.number} · Countdown to the ${state.next.ordinal} Independence Day`;
-  return { title, openGraph: { title, description: SITE.description }, twitter: { title } };
+  return { title, alternates: { canonical: "/" }, openGraph: { title, description: SITE.description, url: "/" }, twitter: { title } };
 }
 
 export default async function Home() {

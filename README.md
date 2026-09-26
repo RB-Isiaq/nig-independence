@@ -43,6 +43,21 @@ To test on your phone over the same Wi-Fi, run `npm run dev -- -H 0.0.0.0` and o
 | `npm run typecheck` | TypeScript check |
 | `npm run lint` | ESLint |
 
+## Recording mode (for social content)
+
+Add `?record` to any URL to get a clean frame for screen recordings (Instagram Reels, TikTok, Stories): no cursor, header, grain or progress bar, and the intro replays on every load.
+
+| URL | What you get |
+| --- | --- |
+| `/?record` | Clean frame; scroll yourself |
+| `/?record&autoplay` | Waits 2.5s after the intro, then scrolls steadily through the whole site |
+| `/?record&autoplay&speed=220` | Same, at 220 px/s (range 40–600, default 140) |
+| `/?record&date=2026-10-01T00:00:05` | Previews another moment, e.g. the "Happy 66th" celebration. Times without a timezone are treated as WAT |
+
+Keys: **Space** pauses and resumes the scroll, **R** restarts from the top.
+
+For vertical 9:16 videos, record on a phone, or use your browser's device toolbar (e.g. 390 × 844). `date` only affects the page in recording mode; the real page, title and share image always use the true date.
+
 ## How it stays correct every year
 
 | Kind of content | Examples | How it stays correct |

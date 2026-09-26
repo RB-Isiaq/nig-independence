@@ -8,7 +8,7 @@ const LINKS = [
 
 export function SiteHeader() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-linear-to-b from-ink via-ink/70 to-transparent">
+    <header data-site-header className="fixed inset-x-0 top-0 z-50 bg-linear-to-b from-ink via-ink/70 to-transparent">
       <Container className="flex items-center justify-between py-5">
         <a href="#top" className="flex items-center gap-3 font-display text-sm font-bold tracking-wide">
           <span aria-hidden className="brand-mark" />

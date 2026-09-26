@@ -4,6 +4,19 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-26 (evening) — Deployed + recording mode
+
+**Live:** https://nig-independence.vercel.app (Vercel, auto-deploys; `main` = production, `dev` = previews). Verified in prod: title/countdown correct, OG image absolute URL + renders, 390px no horizontal scroll, served from Vercel cache.
+
+**Repo:** github.com/RB-Isiaq/nig-independence (public). Owner commits and pushes manually; no AI attribution trailers. The repo was recreated to drop a co-author trailer.
+
+**Done**
+- Recording mode (`lib/record-mode.ts`, tested): `?record` clean frame + intro replay; `&autoplay[&speed=]` steady scroll via `RecordController` (GSAP ticker → Lenis `immediate` scroll), Space/R keys; `&date=` previews another moment through a clock offset in `use-now` (client only; metadata/OG unaffected).
+- `lenis-instance.ts` registry so other client code can drive Lenis.
+- A11y: visual hero lead/trail `aria-hidden` (screen readers read the sr-only `<h1>` once).
+- `og:url` + canonical.
+- Tests 58/58.
+
 ## 2026-09-26 (later) — Motion upgrade pulled forward (owner: "feels too subtle")
 
 **Done**

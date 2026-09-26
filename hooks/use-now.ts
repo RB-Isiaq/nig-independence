@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { parseRecordMode } from "@/lib/record-mode";
 import { MS_PER_SECOND } from "@/lib/time/units";
 
 /**
@@ -11,12 +12,22 @@ import { MS_PER_SECOND } from "@/lib/time/units";
 const listeners = new Set<() => void>();
 let current: number | null = null;
 let timer: ReturnType<typeof setTimeout> | undefined;
+/** Non-zero only in recording mode with `&date=` (preview another moment). */
+let offset: number | null = null;
+
+function clockOffset() {
+  if (offset === null) {
+    const { date } = parseRecordMode(window.location.search);
+    offset = date ? date.getTime() - Date.now() : 0;
+  }
+  return offset;
+}
 
 function tick() {
-  current = Date.now();
+  current = Date.now() + clockOffset();
   listeners.forEach((listener) => listener());
   // Re-align to the next whole second so every display flips together.
-  timer = setTimeout(tick, MS_PER_SECOND - (current % MS_PER_SECOND));
+  timer = setTimeout(tick, MS_PER_SECOND - (Date.now() % MS_PER_SECOND));
 }
 
 function subscribe(listener: () => void) {
