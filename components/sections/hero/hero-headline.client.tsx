@@ -43,7 +43,7 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
         <p data-hero="fade" className="eyebrow">
           {copy.eyebrow}
         </p>
-        <span className="mt-6 block overflow-hidden pb-2">
+        <span aria-hidden className="mt-6 block overflow-hidden pb-2">
           <span data-hero="rise" className="block font-display text-4xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl">
             {copy.lead}
           </span>
@@ -61,7 +61,7 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
 
       <div data-scroll="bottom">
         {copy.trail && (
-          <span className="block overflow-hidden pt-2">
+          <span aria-hidden className="block overflow-hidden pt-2">
             <span data-hero="rise" className="block font-display text-4xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl">
               {copy.trail}
             </span>

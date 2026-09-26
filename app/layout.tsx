@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
 import { Cursor } from "@/components/motion/cursor.client";
+import { RecordController } from "@/components/motion/record-controller.client";
 import { ScrollProgress } from "@/components/motion/scroll-progress.client";
 import { SmoothScroll } from "@/components/motion/smooth-scroll.client";
 import { IntroGateScript } from "@/components/sections/intro/intro-gate-script";
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SmoothScroll />
         <ScrollProgress />
         <Cursor />
+        <RecordController />
         {children}
       </body>
     </html>

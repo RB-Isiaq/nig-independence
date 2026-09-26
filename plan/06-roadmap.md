@@ -21,7 +21,7 @@ Legend: `[x]` done · `[ ]` todo · `[~]` in progress / partial
 - [x] Quality gates pass (lint, typecheck, test, build)
 - [x] Visual QA: desktop, 390px phone, reduced motion, scrolled animations (headless Chrome)
 - [ ] Human fact-check pass over [08-fact-register.md](08-fact-register.md)
-- [ ] Deploy to Vercel + custom domain
+- [x] Deploy to Vercel: https://nig-independence.vercel.app (custom domain: optional)
 - [ ] Manual QA on a real mid-range Android + iOS Safari
 
 ## Phase 2 — Live data
@@ -41,6 +41,7 @@ Legend: `[x]` done · `[ ]` todo · `[~]` in progress / partial
 - [ ] Milestone themes (gold for jubilees)
 
 ## Phase 4 — Engagement
+- [x] Recording mode for social content (`?record`, autoplay, date preview)
 - [ ] Personalised share card `/greet?name=` → OG image
 - [ ] (Optional) moderated wish wall — needs DB + moderation plan
 - [ ] Analytics (privacy-friendly)
