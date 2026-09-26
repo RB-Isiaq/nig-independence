@@ -4,6 +4,21 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-26 (night) — "No animation on my phone" → motion levels
+
+**Cause:** the owner's phone requests reduced motion, and the old code switched all motion off in that case (confirmed by emulating it against production). Not a deploy bug; with motion allowed, production plays the intro.
+
+**Done**
+- `lib/motion-preference.ts` (full | gentle; system | full | gentle preference) and a rewritten gate script (classes `motion-gentle` / `motion-full`), with a test that runs the real inline script against the library for all 16 combinations.
+- `withMotion({ full, gentle })` helper; all 12 animation call sites migrated. Gentle keeps fades, count-up, crossfading digits, scroll progress and the timeline highlight.
+- Header **Motion** toggle (green dot = full), one-time `MotionNotice` for system-reduced visitors ("Show full motion" / "Keep calm").
+- CSS: ambient loops stop under `html.motion-gentle`; without JS it falls back to the media query.
+- Intro only marked "seen" when it actually played (opting in shows it).
+- Mobile header: section links hidden below `sm`, brand no longer wraps.
+- Tests 67/67; lint, typecheck and build green.
+
+**Verified (emulated phone, 390px):** reduce-motion → gentle + notice; tap "Show full motion" → reload → `motion-full`, Lenis on, intro plays; normal phone unaffected.
+
 ## 2026-09-26 (evening) — Deployed + recording mode
 
 **Live:** https://nig-independence.vercel.app (Vercel, auto-deploys; `main` = production, `dev` = previews). Verified in prod: title/countdown correct, OG image absolute URL + renders, 390px no horizontal scroll, served from Vercel cache.

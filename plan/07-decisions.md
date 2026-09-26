@@ -56,3 +56,9 @@ Format: **ADR-NNN — Title** · date · status. Context → Decision → Conseq
 ### ADR-010 — Scroll scene and intro animate different elements
 2026-09-26 · accepted
 - **Decision:** `data-hero=*` elements get intro tweens; `data-scroll=*` wrappers get scrubbed scroll tweens. Never both on one node, so recorded start values can't conflict.
+
+### ADR-011 — Gentle motion + opt-in, not "reduced = none"
+2026-09-26 · accepted (supersedes the all-or-nothing reduced-motion handling)
+- **Context:** The owner tested on their phone and saw no animation at all. Many people have "Reduce Motion" / "Remove animations" enabled (sometimes via battery-saver modes) without knowing, and a celebration site that is completely still looks broken.
+- **Decision:** Two levels, `full` and `gentle`. The OS setting chooses `gentle` by default: vestibular triggers (pinning, zoom, parallax, smooth scroll, marquees, large travel) are removed, soft fades and counting are kept. The visitor can override this in either direction (header toggle + one-time notice), and it persists in `localStorage`. Recording mode forces `full`. The inline gate script mirrors `resolveMotionLevel`, and a test runs the real script against it for every combination.
+- **Consequences:** The OS preference is respected by default and the full experience is one tap away. Toggling reloads the page, so no animation has to handle a live switch.

@@ -13,7 +13,7 @@ interface WavingFlagProps {
 /**
  * The Nigerian flag (1:2, green-white-green vertical bands) built from strips
  * whose staggered CSS animation produces a wave. Pure CSS: zero JS cost, and
- * the animation stops under prefers-reduced-motion (see globals.css).
+ * the wave stops in gentle motion mode (see globals.css).
  */
 export function WavingFlag({ className }: WavingFlagProps) {
   return (

@@ -228,10 +228,21 @@ body {
 }
 
 /* ---------------------------------------------------------- reduced motion */
+/*
+ * Gentle motion (OS reduce-motion or the visitor's choice, set by the gate
+ * script): stop ambient loops such as the flag wave, glow drift and grain.
+ * Without JS there is no class, so fall back to the OS setting directly.
+ */
+html.motion-gentle *,
+html.motion-gentle *::before,
+html.motion-gentle *::after {
+  animation: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  html:not(.js) *,
+  html:not(.js) *::before,
+  html:not(.js) *::after {
     animation: none !important;
     transition: none !important;
   }
@@ -307,6 +318,17 @@ html.js:not(.intro-skip) .intro {
 .rolling__digit {
   display: inline-block;
   animation: digit-in 0.55s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+
+/* Gentle mode: digits crossfade instead of rolling. */
+html.motion-gentle .rolling__digit {
+  animation: digit-fade 0.4s ease-out !important;
+}
+
+@keyframes digit-fade {
+  from {
+    opacity: 0;
+  }
 }
 
 @keyframes digit-in {
@@ -388,12 +410,6 @@ html.has-cursor summary {
   transform-origin: left;
   transform: scaleX(0);
   background: linear-gradient(90deg, var(--color-nigeria) 33%, var(--color-snow) 33% 66%, var(--color-nigeria) 66%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-progress {
-    display: none;
-  }
 }
 
 /* ------------------------------------------------------ timeline highlight */

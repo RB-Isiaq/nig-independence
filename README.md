@@ -10,7 +10,7 @@ The anniversary number, the countdown, the "Happy 66th" celebration mode and the
 - **Live countdown and independence clock.** They tick every second in West Africa Time (WAT), so a visitor in London or Houston sees the same "today" as one in Lagos. At 00:00 WAT on 1 October the page switches to celebration mode live, without a reload.
 - **Sourced history timeline**, 1914 to today. Every event links to its source, and the final entry is worked out from the date so the timeline always reaches the current year.
 - **Motion:** an opening sequence, a pinned hero scroll scene, marquee bands that react to scroll speed, masked text reveals, odometer digits, parallax, a custom cursor and smooth scrolling.
-- **Accessible by default.** With `prefers-reduced-motion` the site is calm and static, and all content is readable without JavaScript.
+- **Motion levels.** Phones set to reduce motion get a *gentle* version: soft fades and count-ups, with no pinning, zooming, parallax or smooth scrolling. A notice and the header **Motion** toggle let anyone switch to full motion (or back), and the choice is remembered. All content is readable without JavaScript.
 - **Dynamic share image**: the link preview always shows the current anniversary.
 
 ## Tech stack
