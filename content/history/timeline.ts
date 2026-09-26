@@ -189,7 +189,7 @@ export const TIMELINE: readonly HistoryEvent[] = [
     date: { year: 1999, month: 5, day: 29 },
     era: "democracy",
     title: "Democracy returns",
-    summary: "The Fourth Republic begins with Olusegun Obasanjo as President: Nigeria's longest run of civilian rule.",
+    summary: "A new constitution begins the Fourth Republic, with Olusegun Obasanjo as elected President.",
     image: {
       src: fourthRepublic1999,
       alt: "President-elect Olusegun Obasanjo in white robes walking beside a US honour guard",

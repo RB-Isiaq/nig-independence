@@ -4,6 +4,12 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-26 (late night) — Fact check + content plan
+
+- **Automated source check:** every timeline claim was checked against the plain text of its Wikipedia source; quotes recorded in 08-fact-register. All matched except "Nigeria's longest run of civilian rule" (1999), which isn't stated in the source, so it was rewritten to "A new constitution begins the Fourth Republic, with Olusegun Obasanjo as elected President." Also confirmed: the clock-intro wording (Union Jack lowered at midnight), the flag line and the motto.
+- **Image licences:** templates read from every file page. All clean except the 1960 photo: public domain in Nigeria, but the US tag is doubtful. Low risk; kept, noted.
+- **Content plan:** plan/12-content-plan.md has shot lists, URLs, voice-over, captions and checklists for Mon, Tue and midnight Wed.
+
 ## 2026-09-26 (night) — 1 October celebration effects
 
 - `canvas-confetti` (ISC, ~6 KB, OffscreenCanvas worker). Choreography is pure and tested in `lib/celebration/bursts.ts` (seeded PRNG): opening show about 3s, finale about 6s, ambient every 4.5–8s, tap bursts clamped to the viewport; flag palette, plus gold for named jubilees.
