@@ -4,6 +4,13 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-26 (night) — 1 October celebration effects
+
+- `canvas-confetti` (ISC, ~6 KB, OffscreenCanvas worker). Choreography is pure and tested in `lib/celebration/bursts.ts` (seeded PRNG): opening show about 3s, finale about 6s, ambient every 4.5–8s, tap bursts clamped to the viewport; flag palette, plus gold for named jubilees.
+- `Celebration` (inside `HeroHeadline`): canvas created imperatively (a worker canvas can only be transferred once, so this survives React dev double effects). Opening show after the intro on 1 Oct; finale when approaching → celebration is seen live; ambient only while the hero is visible and the tab is active; full motion only.
+- The hero entrance replays and the number re-counts when the phase changes (useGSAP deps `[phase]`, `revertOnUpdate`; CountUp keyed by phase).
+- Verified in headless Chrome: `?record&date=2026-10-01T09:00` (opening show), `?record&date=2026-09-30T23:59:52` (countdown reads 0/00/00/03 at 5.5s, then the finale and "Happy 66th Independence Day" at 10.5s), tap burst at the tap point. Tests 75/75; lint, typecheck and build green.
+
 ## 2026-09-26 (later still) — 1967 photo + national anthem
 
 - 1967–70 now has a photo: 1968 relief workers unloading food aid (US CDC, public domain). Chosen to honour the human cost without being graphic or partisan.

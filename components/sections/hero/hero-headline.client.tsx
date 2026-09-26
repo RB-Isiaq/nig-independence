@@ -4,6 +4,7 @@ import { useMemo, useRef } from "react";
 import { CountUp } from "@/components/motion/count-up.client";
 import { gsap, useGSAP, withMotion } from "@/components/motion/gsap";
 import { onIntroDone } from "@/components/motion/intro-signal";
+import { Celebration } from "@/components/sections/celebration/celebration.client";
 import { useNow } from "@/hooks/use-now";
 import { getAnniversaryState } from "@/lib/anniversary";
 import { Countdown } from "./countdown";
@@ -13,6 +14,8 @@ import { getHeroCopy } from "./hero-copy";
  * The live part of the hero: phase-aware headline, big number, countdown.
  * `data-hero` = intro animation targets; `data-scroll` = scroll-scene wrappers
  * (kept on separate elements so the two never fight over the same props).
+ * When the phase changes live (e.g. midnight on 1 October) the entrance replays
+ * and the number counts up again, so the new headline arrives with a moment.
  */
 export function HeroHeadline({ serverNow }: { serverNow: string }) {
   const now = useNow(serverNow);
@@ -42,11 +45,12 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
           ),
       });
     },
-    { scope: root, dependencies: [] },
+    { scope: root, dependencies: [state.phase], revertOnUpdate: true },
   );
 
   return (
     <div ref={root} className="relative z-10 flex flex-col items-start">
+      <Celebration phase={state.phase} jubilee={state.featured.milestone?.tier === "named"} />
       <div data-scroll="top">
         <p data-hero="fade" className="eyebrow">
           {copy.eyebrow}
@@ -65,7 +69,7 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
 
       <div data-scroll="number" aria-hidden className="origin-left overflow-hidden">
         <span data-hero="rise" className="hero-number block font-display font-extrabold tracking-tighter">
-          <CountUp value={copy.number} delay={0.3} />
+          <CountUp key={state.phase} value={copy.number} delay={0.3} />
           {copy.suffix && <span className="hero-number__suffix">{copy.suffix}</span>}
         </span>
       </div>

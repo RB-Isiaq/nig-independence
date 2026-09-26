@@ -38,7 +38,8 @@ Legend: `[x]` done · `[ ]` todo · `[~]` in progress / partial
 - [x] Intro sequence, pinned hero scroll scene, velocity marquees, SplitText headings, rolling digits
 - [x] Custom cursor, magnetic buttons, scroll progress, page grain
 - [ ] Lottie accents
-- [ ] Milestone themes (gold for jubilees)
+- [x] 1 October celebration: opening show, live midnight finale, ambient + tap fireworks (canvas-confetti, worker canvas, full motion only)
+- [~] Milestone themes: gold confetti in jubilee years (full gold UI theme still todo)
 
 ## Phase 4 — Engagement
 - [x] Recording mode for social content (`?record`, autoplay, date preview)

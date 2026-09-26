@@ -35,6 +35,7 @@
 3. Velocity marquees: motto + flag meaning, speed/skew follow scroll
 4. Masked word reveals on headings; odometer digits; parallax timeline years
 5. Cursor, magnetic nav, scroll progress, grain
+6. 1 October: confetti cannons and fireworks (`lib/celebration/bursts.ts` choreography, `components/sections/celebration`); finale on the live midnight flip; the hero entrance replays and the number re-counts when the phase changes
 
 ## Motion principles
 - Enter animations: 0.8–1.2s, `power3.out` / `expo.out`; stagger 0.03–0.08s.

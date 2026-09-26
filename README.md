@@ -7,6 +7,7 @@ The anniversary number, the countdown, the "Happy 66th" celebration mode and the
 ## Features
 
 - **Always-correct anniversary.** The number, ordinal (61st, 62nd, 63rd…), jubilees (Platinum 2030, Centenary 2060) and wording change through the year: approaching → celebration day → afterglow → the rest of the year.
+- **1 October celebration.** Confetti cannons and fireworks in flag colours on the day, a bigger finale if you are watching when the clock strikes midnight, and a firework wherever you tap the hero (gold is added in jubilee years).
 - **Live countdown and independence clock.** They tick every second in West Africa Time (WAT), so a visitor in London or Houston sees the same "today" as one in Lagos. At 00:00 WAT on 1 October the page switches to celebration mode live, without a reload.
 - **Visual history timeline**, 1914 to today: ten moments, one line each, with freely licensed photos credited on each card. Every event links to its source, and the final entry is worked out from the date so the timeline always reaches the current year.
 - **Motion:** an opening sequence, a pinned hero scroll scene, marquee bands that react to scroll speed, masked text reveals, odometer digits, parallax, a custom cursor and smooth scrolling.
@@ -53,6 +54,7 @@ Add `?record` to any URL to get a clean frame for screen recordings (Instagram R
 | `/?record&autoplay` | Waits 2.5s after the intro, then scrolls steadily through the whole site |
 | `/?record&autoplay&speed=220` | Same, at 220 px/s (range 40–600, default 140) |
 | `/?record&date=2026-10-01T00:00:05` | Previews another moment, e.g. the "Happy 66th" celebration. Times without a timezone are treated as WAT |
+| `/?record&date=2026-09-30T23:59:50` | Watch the countdown hit zero and the midnight finale play, 10 seconds after the intro |
 
 Keys: **Space** pauses and resumes the scroll, **R** restarts from the top.
 
