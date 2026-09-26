@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nigeria Independence 🇳🇬
 
-## Getting Started
+An animated website that celebrates Nigeria's Independence Day, **1 October 1960**, and stays correct every year without anyone having to update it.
 
-First, run the development server:
+The anniversary number, the countdown, the "Happy 66th" celebration mode and the share image are all worked out from the date in Lagos time. Next year the site reads "67th", and in 2060 it announces the Centenary, without a code change or redeploy.
+
+## Features
+
+- **Always-correct anniversary.** The number, ordinal (61st, 62nd, 63rd…), jubilees (Platinum 2030, Centenary 2060) and wording change through the year: approaching → celebration day → afterglow → the rest of the year.
+- **Live countdown and independence clock.** They tick every second in West Africa Time (WAT), so a visitor in London or Houston sees the same "today" as one in Lagos. At 00:00 WAT on 1 October the page switches to celebration mode live, without a reload.
+- **Sourced history timeline**, 1914 to today. Every event links to its source, and the final entry is worked out from the date so the timeline always reaches the current year.
+- **Motion:** an opening sequence, a pinned hero scroll scene, marquee bands that react to scroll speed, masked text reveals, odometer digits, parallax, a custom cursor and smooth scrolling.
+- **Accessible by default.** With `prefers-reduced-motion` the site is calm and static, and all content is readable without JavaScript.
+- **Dynamic share image**: the link preview always shows the current anniversary.
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Cache Components) · React 19 · TypeScript (strict)
+- Tailwind CSS v4
+- [GSAP](https://gsap.com) (ScrollTrigger, SplitText) · [Lenis](https://lenis.darkroom.engineering) smooth scroll
+- [Vitest](https://vitest.dev) for date logic and content integrity tests
+
+## Getting started
+
+Requires Node.js 20.9+ (developed on Node 24).
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>. The intro plays once per browser tab; open a new tab to see it again.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To test on your phone over the same Wi-Fi, run `npm run dev -- -H 0.0.0.0` and open `http://<your-computer-ip>:3000`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Scripts
 
-## Learn More
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` / `npm start` | Production build and server |
+| `npm test` | Run the unit tests once (`npm run test:watch` to watch) |
+| `npm run typecheck` | TypeScript check |
+| `npm run lint` | ESLint |
 
-To learn more about Next.js, take a look at the following resources:
+## How it stays correct every year
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Kind of content | Examples | How it stays correct |
+| --- | --- | --- |
+| Worked out from the date | anniversary number, countdown, celebration mode, jubilees | Pure functions of the current time in Lagos: [`lib/anniversary`](lib/anniversary) |
+| Fixed history | 1960 independence, 1963 republic, 1999 Fourth Republic… | Typed, sourced content in [`content/history`](content/history) |
+| Live data *(coming)* | current president, population, GDP | Wikidata and World Bank APIs, cached, with saved backup copies |
+| Editorial *(optional)* | the year's official theme | Optional yearly file; the section hides itself if it's missing |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Time handling.** The server reads the clock in one place only, [`lib/snapshot.ts`](lib/snapshot.ts), which is cached and refreshed every 15 minutes, so the page can be served as static HTML. In the browser, [`hooks/use-now.ts`](hooks/use-now.ts) takes over with a live clock after hydration.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+app/            layout, page, share image, global styles and design tokens
+components/
+  motion/       animation building blocks (GSAP setup, reveal, count-up, cursor…)
+  sections/     one folder per page section (hero, timeline, clock…)
+  ui/           presentational primitives
+content/        site copy and sourced historical content
+hooks/          client hooks
+lib/            pure logic: anniversary maths, Lagos time, formatting
+plan/           product plan, architecture decisions, fact register, roadmap
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Adding or changing content
+
+1. Add the event to [`content/history/timeline.ts`](content/history/timeline.ts), in chronological order, with at least one `https` source.
+2. Add a row to [`plan/08-fact-register.md`](plan/08-fact-register.md).
+3. Run `npm test`. It checks ordering, unique ids and sources.
+
+Facts on this site should be accurate and neutral. If you spot an error, please open an issue with a source.
+
+## Deployment
+
+The site deploys to [Vercel](https://vercel.com) with no configuration: import the repository and deploy.
+
+| Variable | Needed when |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Only when hosting outside Vercel, so share images use the right absolute URL (e.g. `https://example.com`). On Vercel the production domain, including a custom domain, is detected automatically. |
+
+## Documentation
+
+Start with [`plan/README.md`](plan/README.md) for the vision, the evergreen content model, the architecture decisions, the roadmap and the yearly runbook, which is short and optional.
+
+---
+
+*Unity and Faith, Peace and Progress.*

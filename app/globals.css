@@ -1,26 +1,427 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
+/* ------------------------------------------------------------------ tokens */
+@theme {
+  --color-nigeria: #008751;
+  --color-nigeria-bright: #19b374;
+  --color-nigeria-deep: #003d24;
+  --color-ink: #03140c;
+  --color-snow: #f7f5ef;
+  --color-gold: #d4a64a;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* -------------------------------------------------------------------- base */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  background: var(--color-ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Off-canvas animation start states must never cause sideways scroll. */
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-snow);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-nigeria);
+  color: var(--color-snow);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-nigeria-bright);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------- utilities */
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-nigeria-bright);
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--color-snow) 6%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-snow) 12%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+@utility link {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 40%, transparent);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+  &:hover {
+    color: var(--color-snow);
+  }
+}
+
+/* -------------------------------------------------------------- brand mark */
+.brand-mark {
+  width: 1.75rem;
+  height: 0.875rem;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-nigeria) 33.33%,
+    var(--color-snow) 33.33% 66.66%,
+    var(--color-nigeria) 66.66%
+  );
+}
+
+/* -------------------------------------------------------------------- hero */
+.hero__glow {
+  position: absolute;
+  inset: -20%;
+  z-index: -2;
+  background:
+    radial-gradient(40% 40% at 20% 30%, color-mix(in oklab, var(--color-nigeria) 45%, transparent), transparent 70%),
+    radial-gradient(35% 35% at 85% 70%, color-mix(in oklab, var(--color-nigeria-deep) 80%, transparent), transparent 70%);
+  animation: glow-drift 18s ease-in-out infinite alternate;
+}
+
+.hero__flag {
+  position: absolute;
+  z-index: -1;
+  right: -6%;
+  top: 50%;
+  width: min(62vw, 820px);
+  translate: 0 -50%;
+  opacity: 0.35;
+  mask-image: linear-gradient(90deg, transparent, #000 35%);
+}
+
+@media (min-width: 1024px) {
+  .hero__flag {
+    opacity: 0.9;
+    right: 2%;
+  }
+}
+
+.hero-number {
+  font-size: clamp(9rem, 32vw, 22rem);
+  line-height: 0.8;
+  background: linear-gradient(180deg, var(--color-snow) 30%, color-mix(in oklab, var(--color-snow) 55%, transparent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-number__suffix {
+  font-size: 0.3em;
+  vertical-align: 1.9em;
+  margin-left: 0.05em;
+}
+
+/* -------------------------------------------------------------------- flag */
+.flag {
+  display: flex;
+  aspect-ratio: 2 / 1;
+  filter: drop-shadow(0 30px 60px rgb(0 0 0 / 0.45));
+}
+
+.flag__strip {
+  position: relative;
+  flex: 1;
+  margin-left: -1px; /* hide sub-pixel seams */
+  animation: flag-wave 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.09s);
+}
+
+.flag__strip[data-band="green"] {
+  background: var(--color-nigeria);
+}
+
+.flag__strip[data-band="white"] {
+  background: var(--color-snow);
+}
+
+/* Moving light/shadow sells the cloth. */
+.flag__strip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0.1; /* resting value when animation is disabled (reduced motion) */
+  animation: flag-shade 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.09s);
+}
+
+@keyframes flag-wave {
+  0%,
+  100% {
+    transform: translateY(-4%);
+  }
+  50% {
+    transform: translateY(4%);
+  }
+}
+
+@keyframes flag-shade {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow-drift {
+  to {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+}
+
+/* ---------------------------------------------------------------- timeline */
+.timeline-line {
+  position: absolute;
+  top: 6rem;
+  bottom: 0;
+  left: 0.4rem;
+  width: 2px;
+  background: color-mix(in oklab, var(--color-snow) 10%, transparent);
+}
+
+.timeline-line__fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: top;
+  background: linear-gradient(var(--color-nigeria-bright), var(--color-nigeria) 80%, var(--color-snow));
+}
+
+.timeline-item__dot {
+  position: absolute;
+  left: 0;
+  top: 1.1rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: var(--color-ink);
+  border: 2px solid var(--color-nigeria-bright);
+}
+
+@media (min-width: 640px) {
+  .timeline-item__dot {
+    top: 1.9rem;
+  }
+}
+
+.timeline-item--today .timeline-item__dot {
+  background: var(--color-snow);
+  border-color: var(--color-snow);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-snow) 20%, transparent);
+}
+
+/* ---------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------- intro */
+.intro {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--color-ink);
+  /* Failsafe: never trap the page if JS stalls after the gate script ran. */
+  animation: intro-failsafe 0s 6s forwards;
+}
+
+html.js:not(.intro-skip) .intro {
+  display: block;
+}
+
+.intro__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33.34%;
+  transform: translateY(100%);
+}
+
+.intro__panel:nth-child(1) { left: 0; }
+.intro__panel:nth-child(2) { left: 33.33%; }
+.intro__panel:nth-child(3) { left: 66.66%; }
+.intro__panel[data-band="green"] { background: var(--color-nigeria); }
+.intro__panel[data-band="white"] { background: var(--color-snow); }
+
+.intro__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.intro__year {
+  font-size: clamp(6rem, 24vw, 18rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes intro-failsafe {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ---------------------------------------------------------- rolling digits */
+.rolling {
+  display: inline-flex;
+}
+
+.rolling__slot {
+  display: inline-block;
+  overflow: hidden;
+  /* Room for descenders while clipping the roll. */
+  padding-block: 0.05em;
+  margin-block: -0.05em;
+}
+
+.rolling__digit {
+  display: inline-block;
+  animation: digit-in 0.55s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+
+@keyframes digit-in {
+  from {
+    transform: translateY(100%);
+    filter: blur(4px);
+  }
+}
+
+/* -------------------------------------------------------------- motto band */
+.motto-band {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.motto-band__track {
+  display: inline-flex;
+  will-change: transform;
+}
+
+.motto-band__item {
+  padding-right: 0.3em;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 11vw, 10rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.motto-band:nth-child(odd) .motto-band__item {
+  color: var(--color-snow);
+}
+
+/* Solid, not text-stroke: stroking a variable font exposes overlapping glyph contours. */
+.motto-band:nth-child(even) .motto-band__item {
+  color: var(--color-nigeria);
+}
+
+/* ------------------------------------------------------------------ cursor */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  pointer-events: none;
+  border-radius: 999px;
+  visibility: hidden;
+  mix-blend-mode: difference;
+}
+
+.cursor--dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--color-snow);
+}
+
+.cursor--ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1.5px solid var(--color-snow);
+}
+
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor summary {
+  cursor: none;
+}
+
+/* --------------------------------------------------------- scroll progress */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 3px;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--color-nigeria) 33%, var(--color-snow) 33% 66%, var(--color-nigeria) 66%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------ timeline highlight */
+.timeline-item__dot {
+  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+}
+
+.timeline-item.is-active .timeline-item__dot {
+  transform: scale(1.5);
+  background: var(--color-nigeria-bright);
+  box-shadow: 0 0 0 8px color-mix(in oklab, var(--color-nigeria-bright) 25%, transparent),
+    0 0 40px var(--color-nigeria-bright);
+}
+
+/* -------------------------------------------------------------------- grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.8s steps(4) infinite;
+}
+
+@keyframes grain {
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -4%); }
+  75% { transform: translate(-1%, 3%); }
 }
