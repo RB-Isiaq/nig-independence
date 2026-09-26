@@ -26,7 +26,7 @@ export function Timeline({ serverNow }: { serverNow: string }) {
           id="timeline-title"
           eyebrow={`1914 – ${toLagosDate(now).year}`}
           title="The making of a nation."
-          intro="From amalgamation to the Fourth Republic: the moments that shaped Nigeria."
+          intro="Ten moments that shaped Nigeria."
         />
 
         <TimelineTrack>
@@ -35,9 +35,9 @@ export function Timeline({ serverNow }: { serverNow: string }) {
               <p className="eyebrow relative pl-10 sm:pl-16">
                 {ERAS[eraId].label} <span className="text-snow/40">· {ERAS[eraId].span}</span>
               </p>
-              <ol className="mt-10 space-y-20">
+              <ol className="mt-10 space-y-24 sm:space-y-32">
                 {events.map((event) => (
-                  <TimelineItem key={event.id} event={event} />
+                  <TimelineItem key={event.id} event={event} index={TIMELINE.indexOf(event)} />
                 ))}
               </ol>
             </div>

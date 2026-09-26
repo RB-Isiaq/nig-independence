@@ -21,4 +21,19 @@ describe("TIMELINE content integrity", () => {
       for (const source of event.sources) expect(source.url).toMatch(/^https:\/\//);
     }
   });
+
+  it("keeps summaries to one skimmable line", () => {
+    for (const event of TIMELINE) expect(event.summary.length, event.id).toBeLessThanOrEqual(120);
+  });
+
+  it("credits every image properly", () => {
+    for (const { id, image } of TIMELINE) {
+      if (!image) continue;
+      expect(image.alt.length, id).toBeGreaterThan(10);
+      expect(image.credit.author, id).not.toBe("");
+      expect(image.credit.sourceUrl, id).toMatch(/^https:\/\//);
+      // Creative Commons licences require a link to the licence.
+      if (image.credit.license.startsWith("CC")) expect(image.credit.licenseUrl, id).toMatch(/^https:\/\/creativecommons\.org\//);
+    }
+  });
 });

@@ -4,6 +4,25 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-26 (later still) — 1967 photo + national anthem
+
+- 1967–70 now has a photo: 1968 relief workers unloading food aid (US CDC, public domain). Chosen to honour the human cost without being graphic or partisan.
+- National anthem player built and tested, then **removed before commit**: the source YouTube video of the only usable recording is now private, so its CC BY licence can't be verified. Social videos will use the platforms' licensed music instead. See the fact register for how to bring it back.
+- `ImageCredit` renamed to `MediaCredit` (used for images and audio).
+
+## 2026-09-26 (late) — Visual timeline, credits, copyright
+
+**Owner direction:** people don't read, so use fewer words and more visuals. Three social posts: Mon (code + brief), Tue night (countdown teaser), Wed midnight (live flip).
+
+**Done**
+- Timeline trimmed 16 → 10 moments, one line each (a test enforces ≤120 chars); the source is a small link; `until` supports periods (civil war 1967–1970).
+- 9 freely licensed Commons photos in `content/history/images/` (≤1400px, 3.2 MB total; AVIF/WebP served via next/image, blur placeholders from static imports). Credits sit on each card and in a footer "Photo credits" list. Civil war gets a text-only panel.
+- Full motion: photos wipe open (clip-path) and drift inside their frames; text slides in; the years parallax. Gentle mode: fades.
+- Footer © {Lagos year} RB-Isiaq, all rights reserved (no LICENSE file, owner's choice). `SITE.owner`.
+- Tests 69/69; lint, typecheck and build green; screenshots checked on desktop and phone.
+
+**Next:** Oct 1 celebration effects (confetti/fireworks) for post #3; then live data if time allows.
+
 ## 2026-09-26 (night) — "No animation on my phone" → motion levels
 
 **Cause:** the owner's phone requests reduced motion, and the old code switched all motion off in that case (confirmed by emulating it against production). Not a deploy bug; with motion allowed, production plays the intro.

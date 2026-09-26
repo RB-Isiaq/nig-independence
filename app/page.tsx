@@ -34,7 +34,7 @@ export default async function Home() {
         <IndependenceClock serverNow={serverNow} />
         <Timeline serverNow={serverNow} />
       </main>
-      <SiteFooter />
+      <SiteFooter serverNow={serverNow} />
     </>
   );
 }
