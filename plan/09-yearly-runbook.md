@@ -6,6 +6,9 @@ The site is designed so **nothing here is required**. These are optional improve
 - [ ] If the Federal Government has announced an official theme, add `content/years/{year}.ts` (Phase 2+ feature). If not, do nothing — the section hides itself.
 - [ ] Glance at the live site: hero number, countdown, OG preview (paste the URL in WhatsApp/X).
 
+## Optional: 30 September, ~23:55 WAT
+- Open the site and watch it: the countdown hits zero, the finale plays and the page reads "Happy {N}th Independence Day". Nothing needs to be done; this is just a nice moment to record.
+
 ## Only if something changed in the world
 - New historically significant national event? Add to `content/history/timeline.ts` **and** [08-fact-register.md](08-fact-register.md) with a source.
 

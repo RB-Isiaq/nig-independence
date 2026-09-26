@@ -5,6 +5,8 @@ export const SITE = {
   description:
     "An ever-current celebration of Nigeria's Independence Day, 1 October 1960, with a live countdown, the story of the nation, and the anniversary always up to date.",
   motto: "Unity and Faith, Peace and Progress",
+  /** Shown in the © line. */
+  owner: "RB-Isiaq",
 } as const;
 
 /** Absolute site URL for metadata; Vercel provides the production host automatically. */

@@ -4,6 +4,32 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-26 (night) — 1 October celebration effects
+
+- `canvas-confetti` (ISC, ~6 KB, OffscreenCanvas worker). Choreography is pure and tested in `lib/celebration/bursts.ts` (seeded PRNG): opening show about 3s, finale about 6s, ambient every 4.5–8s, tap bursts clamped to the viewport; flag palette, plus gold for named jubilees.
+- `Celebration` (inside `HeroHeadline`): canvas created imperatively (a worker canvas can only be transferred once, so this survives React dev double effects). Opening show after the intro on 1 Oct; finale when approaching → celebration is seen live; ambient only while the hero is visible and the tab is active; full motion only.
+- The hero entrance replays and the number re-counts when the phase changes (useGSAP deps `[phase]`, `revertOnUpdate`; CountUp keyed by phase).
+- Verified in headless Chrome: `?record&date=2026-10-01T09:00` (opening show), `?record&date=2026-09-30T23:59:52` (countdown reads 0/00/00/03 at 5.5s, then the finale and "Happy 66th Independence Day" at 10.5s), tap burst at the tap point. Tests 75/75; lint, typecheck and build green.
+
+## 2026-09-26 (later still) — 1967 photo + national anthem
+
+- 1967–70 now has a photo: 1968 relief workers unloading food aid (US CDC, public domain). Chosen to honour the human cost without being graphic or partisan.
+- National anthem player built and tested, then **removed before commit**: the source YouTube video of the only usable recording is now private, so its CC BY licence can't be verified. Social videos will use the platforms' licensed music instead. See the fact register for how to bring it back.
+- `ImageCredit` renamed to `MediaCredit` (used for images and audio).
+
+## 2026-09-26 (late) — Visual timeline, credits, copyright
+
+**Owner direction:** people don't read, so use fewer words and more visuals. Three social posts: Mon (code + brief), Tue night (countdown teaser), Wed midnight (live flip).
+
+**Done**
+- Timeline trimmed 16 → 10 moments, one line each (a test enforces ≤120 chars); the source is a small link; `until` supports periods (civil war 1967–1970).
+- 9 freely licensed Commons photos in `content/history/images/` (≤1400px, 3.2 MB total; AVIF/WebP served via next/image, blur placeholders from static imports). Credits sit on each card and in a footer "Photo credits" list. Civil war gets a text-only panel.
+- Full motion: photos wipe open (clip-path) and drift inside their frames; text slides in; the years parallax. Gentle mode: fades.
+- Footer © {Lagos year} RB-Isiaq, all rights reserved (no LICENSE file, owner's choice). `SITE.owner`.
+- Tests 69/69; lint, typecheck and build green; screenshots checked on desktop and phone.
+
+**Next:** Oct 1 celebration effects (confetti/fireworks) for post #3; then live data if time allows.
+
 ## 2026-09-26 (night) — "No animation on my phone" → motion levels
 
 **Cause:** the owner's phone requests reduced motion, and the old code switched all motion off in that case (confirmed by emulating it against production). Not a deploy bug; with motion allowed, production plays the intro.

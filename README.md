@@ -7,8 +7,9 @@ The anniversary number, the countdown, the "Happy 66th" celebration mode and the
 ## Features
 
 - **Always-correct anniversary.** The number, ordinal (61st, 62nd, 63rd…), jubilees (Platinum 2030, Centenary 2060) and wording change through the year: approaching → celebration day → afterglow → the rest of the year.
+- **1 October celebration.** Confetti cannons and fireworks in flag colours on the day, a bigger finale if you are watching when the clock strikes midnight, and a firework wherever you tap the hero (gold is added in jubilee years).
 - **Live countdown and independence clock.** They tick every second in West Africa Time (WAT), so a visitor in London or Houston sees the same "today" as one in Lagos. At 00:00 WAT on 1 October the page switches to celebration mode live, without a reload.
-- **Sourced history timeline**, 1914 to today. Every event links to its source, and the final entry is worked out from the date so the timeline always reaches the current year.
+- **Visual history timeline**, 1914 to today: ten moments, one line each, with freely licensed photos credited on each card. Every event links to its source, and the final entry is worked out from the date so the timeline always reaches the current year.
 - **Motion:** an opening sequence, a pinned hero scroll scene, marquee bands that react to scroll speed, masked text reveals, odometer digits, parallax, a custom cursor and smooth scrolling.
 - **Motion levels.** Phones set to reduce motion get a *gentle* version: soft fades and count-ups, with no pinning, zooming, parallax or smooth scrolling. A notice and the header **Motion** toggle let anyone switch to full motion (or back), and the choice is remembered. All content is readable without JavaScript.
 - **Dynamic share image**: the link preview always shows the current anniversary.
@@ -53,6 +54,7 @@ Add `?record` to any URL to get a clean frame for screen recordings (Instagram R
 | `/?record&autoplay` | Waits 2.5s after the intro, then scrolls steadily through the whole site |
 | `/?record&autoplay&speed=220` | Same, at 220 px/s (range 40–600, default 140) |
 | `/?record&date=2026-10-01T00:00:05` | Previews another moment, e.g. the "Happy 66th" celebration. Times without a timezone are treated as WAT |
+| `/?record&date=2026-09-30T23:59:50` | Watch the countdown hit zero and the midnight finale play, 10 seconds after the intro |
 
 Keys: **Space** pauses and resumes the scroll, **R** restarts from the top.
 
@@ -85,9 +87,10 @@ plan/           product plan, architecture decisions, fact register, roadmap
 
 ## Adding or changing content
 
-1. Add the event to [`content/history/timeline.ts`](content/history/timeline.ts), in chronological order, with at least one `https` source.
-2. Add a row to [`plan/08-fact-register.md`](plan/08-fact-register.md).
-3. Run `npm test`. It checks ordering, unique ids and sources.
+1. Add the event to [`content/history/timeline.ts`](content/history/timeline.ts), in chronological order, with at least one `https` source and a one-line summary.
+2. Images: only freely licensed ones (e.g. public domain or Creative Commons from Wikimedia Commons). Put the file in `content/history/images/`, import it, and fill in `credit` (author, licence, licence URL for CC, source page).
+3. Add rows to [`plan/08-fact-register.md`](plan/08-fact-register.md).
+4. Run `npm test`. It checks ordering, ids, sources, summary length and image credits.
 
 Facts on this site should be accurate and neutral. If you spot an error, please open an issue with a source.
 
@@ -102,6 +105,10 @@ The site deploys to [Vercel](https://vercel.com) with no configuration: import t
 ## Documentation
 
 Start with [`plan/README.md`](plan/README.md) for the vision, the evergreen content model, the architecture decisions, the roadmap and the yearly runbook, which is short and optional.
+
+## Copyright
+
+© RB-Isiaq. All rights reserved. Historical photos belong to their credited authors and are used under the licences listed on the site.
 
 ---
 
