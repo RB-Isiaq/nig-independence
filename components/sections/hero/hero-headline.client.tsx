@@ -2,7 +2,7 @@
 
 import { useMemo, useRef } from "react";
 import { CountUp } from "@/components/motion/count-up.client";
-import { gsap, MOTION_OK, useGSAP } from "@/components/motion/gsap";
+import { gsap, useGSAP, withMotion } from "@/components/motion/gsap";
 import { onIntroDone } from "@/components/motion/intro-signal";
 import { useNow } from "@/hooks/use-now";
 import { getAnniversaryState } from "@/lib/anniversary";
@@ -22,17 +22,25 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
 
   useGSAP(
     () => {
-      const mm = gsap.matchMedia();
-      mm.add(MOTION_OK, () => {
-        const intro = gsap
-          .timeline({ paused: true, defaults: { ease: "expo.out", duration: 1.4 } })
-          .from("[data-hero=fade]", { autoAlpha: 0, y: 16, duration: 1 })
-          .from("[data-hero=rise]", { yPercent: 110, stagger: 0.12 }, "<0.1")
-          .from("[data-hero=sub]", { autoAlpha: 0, y: 24, duration: 1 }, "<0.5")
-          .from("[data-hero=cell]", { autoAlpha: 0, y: 32, stagger: 0.08, duration: 1 }, "<0.2");
-        return onIntroDone(() => intro.play());
+      const playAfterIntro = (timeline: gsap.core.Timeline) => onIntroDone(() => timeline.play());
+      return withMotion({
+        full: () =>
+          playAfterIntro(
+            gsap
+              .timeline({ paused: true, defaults: { ease: "expo.out", duration: 1.4 } })
+              .from("[data-hero=fade]", { autoAlpha: 0, y: 16, duration: 1 })
+              .from("[data-hero=rise]", { yPercent: 110, stagger: 0.12 }, "<0.1")
+              .from("[data-hero=sub]", { autoAlpha: 0, y: 24, duration: 1 }, "<0.5")
+              .from("[data-hero=cell]", { autoAlpha: 0, y: 32, stagger: 0.08, duration: 1 }, "<0.2"),
+          ),
+        gentle: () =>
+          playAfterIntro(
+            gsap
+              .timeline({ paused: true, defaults: { ease: "power2.out", duration: 0.9 } })
+              .from("[data-hero=fade], [data-hero=rise]", { autoAlpha: 0, stagger: 0.12 })
+              .from("[data-hero=sub], [data-hero=cell]", { autoAlpha: 0, stagger: 0.06 }, "<0.3"),
+          ),
       });
-      return () => mm.revert();
     },
     { scope: root, dependencies: [] },
   );
@@ -44,7 +52,10 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
           {copy.eyebrow}
         </p>
         <span aria-hidden className="mt-6 block overflow-hidden pb-2">
-          <span data-hero="rise" className="block font-display text-4xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl">
+          <span
+            data-hero="rise"
+            className="block font-display text-4xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl"
+          >
             {copy.lead}
           </span>
         </span>
@@ -62,7 +73,10 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
       <div data-scroll="bottom">
         {copy.trail && (
           <span aria-hidden className="block overflow-hidden pt-2">
-            <span data-hero="rise" className="block font-display text-4xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl">
+            <span
+              data-hero="rise"
+              className="block font-display text-4xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl"
+            >
               {copy.trail}
             </span>
           </span>
@@ -72,7 +86,10 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
         </p>
         {copy.showCountdown && (
           <div className="mt-10">
-            <Countdown parts={state.countdown} label={`${state.countdown.days} days until 1 October ${state.next.year}`} />
+            <Countdown
+              parts={state.countdown}
+              label={`${state.countdown.days} days until 1 October ${state.next.year}`}
+            />
           </div>
         )}
       </div>

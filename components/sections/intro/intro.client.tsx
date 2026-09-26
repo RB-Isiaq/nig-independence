@@ -21,13 +21,15 @@ export function Intro({ serverNow }: { serverNow: string }) {
     () => {
       const skip = document.documentElement.classList.contains("intro-skip");
       const finish = () => {
-        try {
-          sessionStorage.setItem(INTRO_SEEN_KEY, "1");
-        } catch {}
         markIntroDone();
         setFinished(true);
       };
       if (skip) return finish();
+
+      // Only a played intro counts as seen, so opting into full motion later still shows it.
+      try {
+        sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+      } catch {}
 
       const text = year.current?.firstChild;
       const counter = { y: INDEPENDENCE_DATE.year };

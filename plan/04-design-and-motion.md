@@ -39,7 +39,11 @@
 ## Motion principles
 - Enter animations: 0.8–1.2s, `power3.out` / `expo.out`; stagger 0.03–0.08s.
 - Never animate layout properties; only `transform`/`opacity`/`clip-path`.
-- **`prefers-reduced-motion: reduce`** ⇒ no Lenis, no scrub, no count-up, flag static; content visible immediately.
+- **Two motion levels** (`lib/motion-preference.ts`, decided pre-paint by the gate script, ADR-011):
+  - `full`: everything.
+  - `gentle` (default when the OS asks for reduced motion): opacity fades, count-ups, crossfading digits, scroll progress; **no** intro, pinning, zoom, parallax, marquees, cursor, Lenis, or ambient CSS loops.
+  - The header toggle and a one-time notice let visitors switch; stored in `localStorage` (`ng-motion`). `?record` always forces `full`.
+- Every GSAP setup goes through `withMotion({ full, gentle? })` in `components/motion/gsap.ts`. Omitting `gentle` means "doesn't exist in gentle mode".
 - **No-JS ⇒ content visible.** Initial hidden state is applied by JS (GSAP `from`), never by CSS.
 
 ## Budgets
