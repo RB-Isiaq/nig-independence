@@ -50,6 +50,9 @@ The only usable recording ("Nigeria, We Hail Thee", Brazilian Presidential Guard
 
 Rejected images: Biafra outline map (odd visual, politically loaded alone); Gowon 1970 portrait (one side's leader, unclear licence); Red Cross aircrew photos (not informative); 1955 Azikiwe newspaper scan (too degraded); "Starving children" civil-war photo (not appropriate for a celebration page).
 
+## Live data ("Nigeria today")
+Not hand-written: fetched, validated and shown with year + source. Values at build on 27 Sep 2026: population 45.1M (1960) → 237.5M (2025); life expectancy 37.2 → 54.6 yrs (2024); urban share 14% → 64% (2025); President Bola Tinubu since 29 May 2023 (title from Wikidata's office for Nigeria's head of state, P1906 → "President of Nigeria"). Wording is derived ("up from"/"down from" follows the data). Status: 🔎 automated source.
+
 ## Other copy on the page
 | Where | Claim | Status |
 |---|---|---|

@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 const LINKS = [
   { href: "#clock", label: "Clock" },
   { href: "#timeline", label: "Timeline" },
+  { href: "#today", label: "Today" },
 ] as const;
 
 export function SiteHeader() {

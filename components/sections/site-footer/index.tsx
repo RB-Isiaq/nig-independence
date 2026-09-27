@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/container";
 import { TIMELINE } from "@/content/history/timeline";
 import { SITE } from "@/content/site";
 import type { HistoryImage, Source } from "@/content/types";
-import { toLagosDate } from "@/lib/time/lagos";
+import { CurrentYear } from "@/components/ui/current-year.client";
 
 function uniqueSources(): Source[] {
   const byUrl = new Map<string, Source>();
@@ -19,7 +19,6 @@ const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 export function SiteFooter({ serverNow }: { serverNow: string }) {
   const sources = uniqueSources();
   const credits = imageCredits();
-  const year = toLagosDate(new Date(serverNow)).year;
 
   return (
     <footer className="border-t border-snow/10 py-20">
@@ -73,7 +72,8 @@ export function SiteFooter({ serverNow }: { serverNow: string }) {
         </div>
 
         <p className="mt-14 text-sm text-snow/45">
-          © {year} {SITE.owner}. All rights reserved. Photos remain the property of their credited authors.
+          © <CurrentYear serverNow={serverNow} /> {SITE.owner}. All rights reserved. Photos remain the property of their
+          credited authors.
         </p>
       </Container>
     </footer>

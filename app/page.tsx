@@ -4,6 +4,7 @@ import { getHeroCopy } from "@/components/sections/hero/hero-copy";
 import { IndependenceClock } from "@/components/sections/independence-clock";
 import { Intro } from "@/components/sections/intro/intro.client";
 import { MottoBand } from "@/components/sections/motto-band";
+import { NigeriaToday } from "@/components/sections/nigeria-today";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Timeline } from "@/components/sections/timeline";
@@ -33,6 +34,7 @@ export default async function Home() {
         <MottoBand />
         <IndependenceClock serverNow={serverNow} />
         <Timeline serverNow={serverNow} />
+        <NigeriaToday />
       </main>
       <SiteFooter serverNow={serverNow} />
     </>

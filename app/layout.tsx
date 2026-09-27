@@ -8,9 +8,18 @@ import { SmoothScroll } from "@/components/motion/smooth-scroll.client";
 import { IntroGateScript } from "@/components/sections/intro/intro-gate-script";
 import { getSiteUrl, SITE } from "@/content/site";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
-const display = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"], display: "swap" });
-const sans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
+});
+const sans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -28,7 +37,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: IntroGateScript adds classes to <html> before hydration.
-    <html lang="en-NG" className={`${display.variable} ${sans.variable} antialiased`} suppressHydrationWarning>
+    <html
+      lang="en-NG"
+      className={`${display.variable} ${sans.variable} antialiased`}
+      suppressHydrationWarning
+    >
       <head>
         <IntroGateScript />
       </head>
@@ -39,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <RecordController />
         <MotionNotice />
         {children}
+        <Analytics />
       </body>
     </html>
   );

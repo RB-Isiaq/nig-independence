@@ -25,9 +25,10 @@ Legend: `[x]` done · `[ ]` todo · `[~]` in progress / partial
 - [ ] Manual QA on a real mid-range Android + iOS Safari
 
 ## Phase 2 — Live data
-- [ ] zod schemas; Wikidata leaders client; World Bank client
-- [ ] Fallback snapshots + refresh script + CI workflow
-- [ ] Leaders section; Nigeria-in-numbers section (animated counters + charts)
+- [x] zod schemas; Wikidata head-of-state client; World Bank client (tested with fixtures)
+- [x] Fallback snapshot + `npm run data:refresh` (CI schedule: todo)
+- [x] "Nigeria today" compact strip: 3 World Bank figures (1960 vs latest) + current head of state, scroll count-ups
+- [ ] ~~Leaders gallery~~ (Wikidata history incomplete; skipped by design)
 - [ ] Optional `content/years/{year}.ts` (theme/highlights) with hide-if-absent
 
 ## Phase 3 — Full motion
@@ -45,4 +46,4 @@ Legend: `[x]` done · `[ ]` todo · `[~]` in progress / partial
 - [x] Recording mode for social content (`?record`, autoplay, date preview)
 - [ ] Personalised share card `/greet?name=` → OG image
 - [ ] (Optional) moderated wish wall — needs DB + moderation plan
-- [ ] Analytics (privacy-friendly)
+- [x] Analytics: Vercel Analytics (`<Analytics />` in layout, added by owner)

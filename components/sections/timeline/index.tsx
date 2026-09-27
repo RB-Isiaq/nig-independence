@@ -3,10 +3,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { ERAS } from "@/content/history/eras";
 import { TIMELINE } from "@/content/history/timeline";
 import type { EraId, HistoryEvent } from "@/content/types";
-import { getAnniversaryState } from "@/lib/anniversary";
-import { toLagosDate } from "@/lib/time/lagos";
+import { CurrentYear } from "@/components/ui/current-year.client";
 import { TimelineItem } from "./timeline-item";
-import { TimelineToday } from "./timeline-today";
+import { TimelineToday } from "./timeline-today.client";
 import { TimelineTrack } from "./timeline-track.client";
 
 function groupByEra(events: readonly HistoryEvent[]) {
@@ -16,15 +15,16 @@ function groupByEra(events: readonly HistoryEvent[]) {
 }
 
 export function Timeline({ serverNow }: { serverNow: string }) {
-  const now = new Date(serverNow);
-  const state = getAnniversaryState(now);
-
   return (
     <section id="timeline" aria-labelledby="timeline-title" className="py-28 sm:py-36">
       <Container>
         <SectionHeading
           id="timeline-title"
-          eyebrow={`1914 – ${toLagosDate(now).year}`}
+          eyebrow={
+            <>
+              1914 – <CurrentYear serverNow={serverNow} />
+            </>
+          }
           title="The making of a nation."
           intro="Ten moments that shaped Nigeria."
         />
@@ -43,7 +43,7 @@ export function Timeline({ serverNow }: { serverNow: string }) {
             </div>
           ))}
           <ol className="mt-20">
-            <TimelineToday state={state} year={toLagosDate(now).year} />
+            <TimelineToday serverNow={serverNow} />
           </ol>
         </TimelineTrack>
       </Container>
