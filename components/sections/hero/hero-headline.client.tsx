@@ -69,7 +69,7 @@ export function HeroHeadline({ serverNow }: { serverNow: string }) {
 
       <div data-scroll="number" aria-hidden className="origin-left overflow-hidden">
         <span data-hero="rise" className="hero-number block font-display font-extrabold tracking-tighter">
-          <CountUp key={state.phase} value={copy.number} delay={0.3} />
+          <CountUp key={`${state.phase}-${copy.number}`} value={copy.number} delay={0.3} />
           {copy.suffix && <span className="hero-number__suffix">{copy.suffix}</span>}
         </span>
       </div>

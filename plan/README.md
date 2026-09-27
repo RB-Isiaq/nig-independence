@@ -17,6 +17,7 @@
 | 09 | [Yearly runbook](09-yearly-runbook.md) | The (short) list of things a human may do each year |
 | 10 | [Progress log](10-progress-log.md) | Dated log of what was done, what's next |
 | 11 | [Sprint to 1 Oct](11-sprint-to-oct-1.md) | Day-by-day plan to ship Phases 2–4 before launch |
+| 12 | [Content plan](12-content-plan.md) | The 3 social posts: shot lists, URLs, captions, checklists |
 
 ## Quick status
 

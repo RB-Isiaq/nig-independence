@@ -7,10 +7,19 @@ import { ScrollProgress } from "@/components/motion/scroll-progress.client";
 import { SmoothScroll } from "@/components/motion/smooth-scroll.client";
 import { IntroGateScript } from "@/components/sections/intro/intro-gate-script";
 import { getSiteUrl, SITE } from "@/content/site";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"], display: "swap" });
-const sans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
+const display = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  display: "swap",
+});
+const sans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -39,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <RecordController />
         <MotionNotice />
         {children}
+        <Analytics />
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
 import { MottoBand as Band } from "./motto-band.client";
 
 const MOTTO = ["Unity and Faith", "Peace and Progress"] as const;
-const COLOURS = ["Green for the land", "White for peace", "Green for the land"] as const;
+// Flag meaning per "Flag of Nigeria": green for agriculture, white for peace and unity.
+const COLOURS = ["Green for agriculture", "White for peace and unity", "Green for agriculture"] as const;
 
 /** Two counter-scrolling bands: the national motto and the meaning of the flag. */
 export function MottoBand() {

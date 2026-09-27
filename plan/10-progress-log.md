@@ -4,6 +4,46 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-27 — Full technical audit (pre-launch)
+
+Read every source file; ran lint, typecheck, tests and build; runtime-scanned the production build in headless Chrome (6 scenarios: desktop, phone, phone + reduced motion, 1 Oct, 2060 and 2027 previews), scrolling the full page to fire every ScrollTrigger, and captured exceptions, console errors, hydration errors, overflow, hidden content and broken images.
+
+**Fixed**
+1. Hero count-up could animate to a stale number in a `&date=` preview with the same phase but a different year (e.g. 15 Sep 2027 showed 66): now keyed by phase + number. Verified: shows 67.
+2. Intro counted to the server's year, ignoring previews: now uses `readNow()` (live clock + preview offset).
+3. Slow phones: if JS started after ~5s, the CSS failsafe could hide the overlay mid-intro and leave the hero blank. Now the intro is skipped if JS starts after 4.5s; the failsafe is 8s; recordings always play the whole intro.
+4. Clock resyncs as soon as a background tab becomes visible (throttled timers made it lag).
+5. Era labels were inaccurate: the military era span covered the civilian Second Republic and ended in 1998; the First Republic ended in 1966, not 1965.
+6. Motto band flag meaning didn't match the source: now "Green for agriculture · White for peace and unity".
+7. "Ten moments" hardcoded: the count is now derived from the content.
+8. Footer said photos "remain the property" of authors, which is wrong for public-domain images: reworded.
+9. Stat-tile source links now align with the President tile.
+10. Dead code removed: `LAGOS_TIMEZONE_LABEL`, `SITE.shortName`, `SITE.tagline`, `getNextNamedMilestone` (+ its tests). Layout import order tidied.
+
+**Verified clean:** 0 exceptions, 0 console errors, 0 hydration errors, 0 horizontal overflow, 0 content left hidden after scroll, 10/10 images load, in every scenario. Generated CSS includes Safari prefixes. Tests 90/90.
+
+**Owner action:** Vercel Analytics isn't live in production (`/_vercel/insights/script.js` 404). Deploy the `<Analytics />` change and enable Analytics in the Vercel dashboard.
+
+## 2026-09-27 — Timeline "today" card: live + fixed 1 October wording
+
+- **Bug (owner spotted):** on 1 October the card said "…the 66th anniversary *arrives* on 1 October 2026" on the day itself. New `getTodayCopy` has a celebration-day line ("Today, 1 October 2026, Nigeria celebrates 66 years of independence."), with tests for before, on and after the day, and 2060/2061.
+- The card, the timeline eyebrow year ("1914 – {year}") and the footer © year now use the live clock (`TimelineToday` client, `CurrentYear`), so they flip exactly at midnight and follow `?record&date=` (previously server-rendered: up to ~15 min late and ignored previews).
+- Verified in the browser: today, 1 Oct, 2 Oct, 1 Jan 2027 and 1 Oct 2060 all show the right year, age and wording. Tests 93/93.
+
+## 2026-09-27 — "Nigeria today" live strip (Phase 2, compact)
+
+- Chosen over full sections to keep reading light (owner: "don't bore users"); one screen, four tiles.
+- `lib/sources`: World Bank then-and-now (1960 or earliest vs latest, plausibility bounds) and Wikidata current head of state (exactly one open-ended P35 statement, readable label, sane date). Tests use offline fixtures, including rejecting a unit mix-up, error payloads, ambiguous/vandalised data, and automatic succession after an election.
+- `lib/data/nigeria-today.ts`: cached, with per-source fallback to the committed `snapshot.json`; `npm run data:refresh` (tsx; the script is `.mts` for top-level await).
+- UI: `components/sections/nigeria-today` with scroll-triggered count-ups (CountUp gained `decimals` and `start="scroll"`); "Today" added to the desktop nav.
+- Tests 88/88; lint, typecheck and build green; page still static (data fetched at build, then cached). Screenshots checked on desktop and phone.
+
+## 2026-09-26 (late night) — Fact check + content plan
+
+- **Automated source check:** every timeline claim was checked against the plain text of its Wikipedia source; quotes recorded in 08-fact-register. All matched except "Nigeria's longest run of civilian rule" (1999), which isn't stated in the source, so it was rewritten to "A new constitution begins the Fourth Republic, with Olusegun Obasanjo as elected President." Also confirmed: the clock-intro wording (Union Jack lowered at midnight), the flag line and the motto.
+- **Image licences:** templates read from every file page. All clean except the 1960 photo: public domain in Nigeria, but the US tag is doubtful. Low risk; kept, noted.
+- **Content plan:** plan/12-content-plan.md has shot lists, URLs, voice-over, captions and checklists for Mon, Tue and midnight Wed.
+
 ## 2026-09-26 (night) — 1 October celebration effects
 
 - `canvas-confetti` (ISC, ~6 KB, OffscreenCanvas worker). Choreography is pure and tested in `lib/celebration/bursts.ts` (seeded PRNG): opening show about 3s, finale about 6s, ambient every 4.5–8s, tap bursts clamped to the viewport; flag palette, plus gold for named jubilees.

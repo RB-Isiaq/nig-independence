@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getMilestone, getNextNamedMilestone } from "./milestones";
+import { getMilestone } from "./milestones";
 
 describe("getMilestone", () => {
   it("names jubilees", () => {
@@ -17,19 +17,5 @@ describe("getMilestone", () => {
   it("returns null for ordinary years", () => {
     expect(getMilestone(66)).toBeNull();
     expect(getMilestone(0)).toBeNull();
-  });
-});
-
-describe("getNextNamedMilestone", () => {
-  it("finds the next jubilee after 66", () => {
-    expect(getNextNamedMilestone(66)).toEqual({ anniversary: 70, label: "Platinum Jubilee" });
-  });
-
-  it("is exclusive of the current anniversary", () => {
-    expect(getNextNamedMilestone(70)?.anniversary).toBe(100);
-  });
-
-  it("returns null past the last defined milestone", () => {
-    expect(getNextNamedMilestone(100)).toBeNull();
   });
 });

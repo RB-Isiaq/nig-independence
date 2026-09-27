@@ -1,4 +1,4 @@
-# 05 — Data Sources (Phase 2+)
+# 05 — Data Sources (live since 27 Sep 2026)
 
 | Data | Source | Endpoint / query | Refresh | Notes |
 |---|---|---|---|---|
@@ -15,3 +15,10 @@
 3. `scripts/refresh-snapshots.ts` refreshes fallbacks; run in CI weekly; CI fails if validation fails.
 4. Sanity checks, e.g. population must be within ±10% of previous value; leader must have a start date; exactly one current head of state.
 5. UI always shows "Source · as of {year}".
+
+## As built (27 Sep 2026)
+- Code: `lib/sources/{http,worldbank,wikidata}.ts` (pure, fetcher injectable, zod + plausibility checks), cached in `lib/data/nigeria-today.ts` (`'use cache'`: World Bank `weeks` + tag `worldbank`, Wikidata `days` + tag `wikidata`).
+- Fallback: `lib/sources/snapshot.json`, used per source when live fetch or validation fails (logs `[nigeria-today] … using snapshot`). Refresh with `npm run data:refresh`; it fails loudly on bad data, and a test checks the committed snapshot.
+- Shown: population (SP.POP.TOTL), life expectancy (SP.DYN.LE00.IN), urban share (SP.URB.TOTL.IN.ZS), and the current head of state (the single P35 statement with a start date and no end date).
+- Not used: the Wikidata P35 history (only 5 statements, incomplete), so there is no leaders gallery; GDP (2014 rebasing makes a 1960 comparison misleading).
+- Note: the default `'use cache'` handler is in-memory, so on serverless the sources may be re-queried when the page regenerates (at most every ~15 min). That's fine for these free APIs; consider `'use cache: remote'` if traffic grows.

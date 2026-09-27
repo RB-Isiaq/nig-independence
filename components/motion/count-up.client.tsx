@@ -9,14 +9,19 @@ interface CountUpProps {
   className?: string;
   duration?: number;
   delay?: number;
+  decimals?: number;
+  /** "intro": count once the intro finishes (hero). "scroll": count when scrolled into view. */
+  start?: "intro" | "scroll";
 }
 
 /**
  * Renders the final number on the server (correct without JS), then counts up
- * from zero once the intro has finished. Later value changes (e.g. at midnight)
- * snap. Counting isn't a vestibular trigger, so it runs in gentle mode too.
+ * from zero once the intro has finished (or when scrolled into view). Later
+ * value changes (e.g. at midnight) snap. Counting isn't a vestibular trigger,
+ * so it runs in gentle mode too.
  */
-export function CountUp({ value, className, duration = 2.2, delay = 0 }: CountUpProps) {
+export function CountUp({ value, className, duration = 2.2, delay = 0, decimals = 0, start = "intro" }: CountUpProps) {
+  const format = (n: number) => n.toFixed(decimals);
   const el = useRef<HTMLSpanElement>(null);
 
   useGSAP(
@@ -27,21 +32,22 @@ export function CountUp({ value, className, duration = 2.2, delay = 0 }: CountUp
 
       const countUp = () => {
         const counter = { n: 0 };
-        text.nodeValue = "0";
+        text.nodeValue = format(0);
         const tween = gsap.to(counter, {
-          paused: true,
+          paused: start === "intro",
           n: value,
           duration,
           delay,
           ease: "expo.out",
           onUpdate: () => {
-            text.nodeValue = String(Math.round(counter.n));
+            text.nodeValue = format(counter.n);
           },
+          ...(start === "scroll" && { scrollTrigger: { trigger: el.current, start: "top 90%", once: true } }),
         });
-        const unsubscribe = onIntroDone(() => tween.play());
+        const unsubscribe = start === "intro" ? onIntroDone(() => tween.play()) : () => {};
         return () => {
           unsubscribe();
-          text.nodeValue = String(value);
+          text.nodeValue = format(value);
         };
       };
       return withMotion({ full: countUp, gentle: countUp });
@@ -52,7 +58,7 @@ export function CountUp({ value, className, duration = 2.2, delay = 0 }: CountUp
 
   return (
     <span ref={el} className={className}>
-      {value}
+      {format(value)}
     </span>
   );
 }

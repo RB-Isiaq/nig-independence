@@ -23,19 +23,34 @@ function clockOffset() {
   return offset;
 }
 
+/** The current time in ms, including any recording-mode preview offset. Safe to call outside React. */
+export function readNow(): number {
+  return Date.now() + clockOffset();
+}
+
 function tick() {
-  current = Date.now() + clockOffset();
+  clearTimeout(timer);
+  current = readNow();
   listeners.forEach((listener) => listener());
   // Re-align to the next whole second so every display flips together.
   timer = setTimeout(tick, MS_PER_SECOND - (Date.now() % MS_PER_SECOND));
 }
 
+// Background tabs throttle timers; catch up the moment the page is visible again.
+const onVisible = () => {
+  if (document.visibilityState === "visible") tick();
+};
+
 function subscribe(listener: () => void) {
   listeners.add(listener);
-  if (listeners.size === 1) tick();
+  if (listeners.size === 1) {
+    document.addEventListener("visibilitychange", onVisible);
+    tick();
+  }
   return () => {
     listeners.delete(listener);
     if (listeners.size === 0) {
+      document.removeEventListener("visibilitychange", onVisible);
       clearTimeout(timer);
       current = null;
     }

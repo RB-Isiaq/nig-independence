@@ -4,6 +4,7 @@ import { getHeroCopy } from "@/components/sections/hero/hero-copy";
 import { IndependenceClock } from "@/components/sections/independence-clock";
 import { Intro } from "@/components/sections/intro/intro.client";
 import { MottoBand } from "@/components/sections/motto-band";
+import { NigeriaToday } from "@/components/sections/nigeria-today";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Timeline } from "@/components/sections/timeline";
@@ -18,7 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
     state.phase === "celebration"
       ? `Happy ${state.featured.ordinal} Independence Day, Nigeria`
       : `${copy.lead} ${copy.number} · Countdown to the ${state.next.ordinal} Independence Day`;
-  return { title, alternates: { canonical: "/" }, openGraph: { title, description: SITE.description, url: "/" }, twitter: { title } };
+  return {
+    title,
+    alternates: { canonical: "/" },
+    openGraph: { title, description: SITE.description, url: "/" },
+    twitter: { title },
+  };
 }
 
 export default async function Home() {
@@ -26,13 +32,14 @@ export default async function Home() {
 
   return (
     <>
-      <Intro serverNow={serverNow} />
+      <Intro />
       <SiteHeader />
       <main id="top">
         <Hero serverNow={serverNow} />
         <MottoBand />
         <IndependenceClock serverNow={serverNow} />
         <Timeline serverNow={serverNow} />
+        <NigeriaToday />
       </main>
       <SiteFooter serverNow={serverNow} />
     </>

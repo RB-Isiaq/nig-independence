@@ -1,0 +1,53 @@
+{
+  "fetchedAt": "2026-09-27T14:50:02.895Z",
+  "indicators": [
+    {
+      "key": "population",
+      "code": "SP.POP.TOTL",
+      "label": "Population, total",
+      "then": {
+        "year": 1960,
+        "value": 45053782
+      },
+      "now": {
+        "year": 2025,
+        "value": 237527782
+      },
+      "sourceUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=NG"
+    },
+    {
+      "key": "lifeExpectancy",
+      "code": "SP.DYN.LE00.IN",
+      "label": "Life expectancy at birth, total (years)",
+      "then": {
+        "year": 1960,
+        "value": 37.207
+      },
+      "now": {
+        "year": 2024,
+        "value": 54.635
+      },
+      "sourceUrl": "https://data.worldbank.org/indicator/SP.DYN.LE00.IN?locations=NG"
+    },
+    {
+      "key": "urbanShare",
+      "code": "SP.URB.TOTL.IN.ZS",
+      "label": "Urban population (% of total population)",
+      "then": {
+        "year": 1960,
+        "value": 14.2320052121544
+      },
+      "now": {
+        "year": 2025,
+        "value": 63.7754180467872
+      },
+      "sourceUrl": "https://data.worldbank.org/indicator/SP.URB.TOTL.IN.ZS?locations=NG"
+    }
+  ],
+  "headOfState": {
+    "title": "President",
+    "name": "Bola Tinubu",
+    "since": "2023-05-29",
+    "sourceUrl": "http://www.wikidata.org/wiki/Q3510872"
+  }
+}

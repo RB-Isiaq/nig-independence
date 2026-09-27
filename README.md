@@ -8,6 +8,7 @@ The anniversary number, the countdown, the "Happy 66th" celebration mode and the
 
 - **Always-correct anniversary.** The number, ordinal (61st, 62nd, 63rd…), jubilees (Platinum 2030, Centenary 2060) and wording change through the year: approaching → celebration day → afterglow → the rest of the year.
 - **1 October celebration.** Confetti cannons and fireworks in flag colours on the day, a bigger finale if you are watching when the clock strikes midnight, and a firework wherever you tap the hero (gold is added in jubilee years).
+- **Nigeria today.** Four live figures, 1960 vs the latest year: population, life expectancy and share living in cities (World Bank), and the current President (Wikidata). Each shows its year and source, and falls back to a saved copy if a source is down or returns bad data.
 - **Live countdown and independence clock.** They tick every second in West Africa Time (WAT), so a visitor in London or Houston sees the same "today" as one in Lagos. At 00:00 WAT on 1 October the page switches to celebration mode live, without a reload.
 - **Visual history timeline**, 1914 to today: ten moments, one line each, with freely licensed photos credited on each card. Every event links to its source, and the final entry is worked out from the date so the timeline always reaches the current year.
 - **Motion:** an opening sequence, a pinned hero scroll scene, marquee bands that react to scroll speed, masked text reveals, odometer digits, parallax, a custom cursor and smooth scrolling.
@@ -43,6 +44,7 @@ To test on your phone over the same Wi-Fi, run `npm run dev -- -H 0.0.0.0` and o
 | `npm test` | Run the unit tests once (`npm run test:watch` to watch) |
 | `npm run typecheck` | TypeScript check |
 | `npm run lint` | ESLint |
+| `npm run data:refresh` | Refresh the saved backup copy of the live data (`lib/sources/snapshot.json`) |
 
 ## Recording mode (for social content)
 
@@ -66,7 +68,7 @@ For vertical 9:16 videos, record on a phone, or use your browser's device toolba
 | --- | --- | --- |
 | Worked out from the date | anniversary number, countdown, celebration mode, jubilees | Pure functions of the current time in Lagos: [`lib/anniversary`](lib/anniversary) |
 | Fixed history | 1960 independence, 1963 republic, 1999 Fourth Republic… | Typed, sourced content in [`content/history`](content/history) |
-| Live data *(coming)* | current president, population, GDP | Wikidata and World Bank APIs, cached, with saved backup copies |
+| Live data | the President, population, life expectancy, urban share | Wikidata (daily) and World Bank (weekly) via [`lib/sources`](lib/sources), validated with zod, sanity-checked, with a committed snapshot fallback |
 | Editorial *(optional)* | the year's official theme | Optional yearly file; the section hides itself if it's missing |
 
 **Time handling.** The server reads the clock in one place only, [`lib/snapshot.ts`](lib/snapshot.ts), which is cached and refreshed every 15 minutes, so the page can be served as static HTML. In the browser, [`hooks/use-now.ts`](hooks/use-now.ts) takes over with a live clock after hydration.
@@ -108,7 +110,7 @@ Start with [`plan/README.md`](plan/README.md) for the vision, the evergreen cont
 
 ## Copyright
 
-© RB-Isiaq. All rights reserved. Historical photos belong to their credited authors and are used under the licences listed on the site.
+© RB-Isiaq. All rights reserved. Historical photos are credited to their authors and used under the licences listed on the site.
 
 ---
 

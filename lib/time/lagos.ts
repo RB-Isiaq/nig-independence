@@ -5,7 +5,6 @@ import { MS_PER_HOUR } from "./units";
  * offset is exact and keeps date logic deterministic (see plan ADR-001).
  */
 export const LAGOS_UTC_OFFSET_MS = 1 * MS_PER_HOUR;
-export const LAGOS_TIMEZONE_LABEL = "WAT";
 
 export interface CalendarDate {
   year: number;

@@ -3,28 +3,40 @@
 import { useRef, useState } from "react";
 import { gsap, useGSAP } from "@/components/motion/gsap";
 import { markIntroDone } from "@/components/motion/intro-signal";
+import { readNow } from "@/hooks/use-now";
 import { INDEPENDENCE_DATE } from "@/lib/anniversary";
 import { toLagosDate } from "@/lib/time/lagos";
 import { INTRO_SEEN_KEY } from "./intro-gate-script";
 
 /**
+ * If JS starts this late (slow network/phone), skip the intro so the CSS
+ * failsafe in globals.css (8s) can never cut it off halfway. The intro needs
+ * ~2.7s to cover the screen, so 4.5s + 2.7s stays inside the failsafe.
+ */
+const INTRO_LATE_MS = 4_500;
+
+/**
  * Full-screen opener: the year counts 1960 → today, then three flag-coloured
  * panels sweep up to reveal the page. Plays once per browser session.
  */
-export function Intro({ serverNow }: { serverNow: string }) {
+export function Intro() {
   const root = useRef<HTMLDivElement>(null);
   const year = useRef<HTMLSpanElement>(null);
   const [finished, setFinished] = useState(false);
-  const targetYear = toLagosDate(new Date(serverNow)).year;
 
   useGSAP(
     () => {
-      const skip = document.documentElement.classList.contains("intro-skip");
+      const html = document.documentElement;
+      const skip = html.classList.contains("intro-skip");
+      const late = !html.classList.contains("record") && performance.now() > INTRO_LATE_MS;
       const finish = () => {
         markIntroDone();
         setFinished(true);
       };
-      if (skip) return finish();
+      if (skip || late) return finish();
+
+      // Read the live clock here (not the server snapshot) so it follows `&date=` previews.
+      const targetYear = toLagosDate(new Date(readNow())).year;
 
       // Only a played intro counts as seen, so opting into full motion later still shows it.
       try {
@@ -69,7 +81,9 @@ export function Intro({ serverNow }: { serverNow: string }) {
         <div key={i} data-intro="panel" data-band={band} className="intro__panel" />
       ))}
       <div data-intro="content" className="intro__content">
-        <p data-intro="label" className="eyebrow">Independence · Nigeria</p>
+        <p data-intro="label" className="eyebrow">
+          Independence · Nigeria
+        </p>
         <span ref={year} className="intro__year font-display">
           {INDEPENDENCE_DATE.year}
         </span>

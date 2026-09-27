@@ -3,7 +3,7 @@ import { Reveal } from "@/components/motion/reveal.client";
 import { SplitReveal } from "@/components/motion/split-reveal.client";
 
 interface SectionHeadingProps {
-  eyebrow: string;
+  eyebrow: ReactNode;
   title: string;
   intro?: ReactNode;
   id?: string;
