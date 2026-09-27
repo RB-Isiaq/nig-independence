@@ -19,7 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
     state.phase === "celebration"
       ? `Happy ${state.featured.ordinal} Independence Day, Nigeria`
       : `${copy.lead} ${copy.number} · Countdown to the ${state.next.ordinal} Independence Day`;
-  return { title, alternates: { canonical: "/" }, openGraph: { title, description: SITE.description, url: "/" }, twitter: { title } };
+  return {
+    title,
+    alternates: { canonical: "/" },
+    openGraph: { title, description: SITE.description, url: "/" },
+    twitter: { title },
+  };
 }
 
 export default async function Home() {
@@ -27,7 +32,7 @@ export default async function Home() {
 
   return (
     <>
-      <Intro serverNow={serverNow} />
+      <Intro />
       <SiteHeader />
       <main id="top">
         <Hero serverNow={serverNow} />

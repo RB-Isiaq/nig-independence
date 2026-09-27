@@ -1,7 +1,5 @@
 export const SITE = {
   name: "Nigeria Independence",
-  shortName: "NG Independence",
-  tagline: "Unity and Faith, Peace and Progress",
   description:
     "An ever-current celebration of Nigeria's Independence Day, 1 October 1960, with a live countdown, the story of the nation, and the anniversary always up to date.",
   motto: "Unity and Faith, Peace and Progress",

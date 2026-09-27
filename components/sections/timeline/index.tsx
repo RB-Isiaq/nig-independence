@@ -26,7 +26,7 @@ export function Timeline({ serverNow }: { serverNow: string }) {
             </>
           }
           title="The making of a nation."
-          intro="Ten moments that shaped Nigeria."
+          intro={`${TIMELINE.length} moments that shaped Nigeria.`}
         />
 
         <TimelineTrack>

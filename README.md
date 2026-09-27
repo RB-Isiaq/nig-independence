@@ -110,7 +110,7 @@ Start with [`plan/README.md`](plan/README.md) for the vision, the evergreen cont
 
 ## Copyright
 
-© RB-Isiaq. All rights reserved. Historical photos belong to their credited authors and are used under the licences listed on the site.
+© RB-Isiaq. All rights reserved. Historical photos are credited to their authors and used under the licences listed on the site.
 
 ---
 

@@ -23,12 +23,3 @@ export function getMilestone(anniversary: number): Milestone | null {
   }
   return null;
 }
-
-/** The next named jubilee strictly after the given anniversary, if any. */
-export function getNextNamedMilestone(after: number): { anniversary: number; label: string } | null {
-  const next = Object.keys(NAMED_MILESTONES)
-    .map(Number)
-    .sort((a, b) => a - b)
-    .find((n) => n > after);
-  return next === undefined ? null : { anniversary: next, label: NAMED_MILESTONES[next] };
-}

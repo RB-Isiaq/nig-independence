@@ -4,6 +4,26 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-27 — Full technical audit (pre-launch)
+
+Read every source file; ran lint, typecheck, tests and build; runtime-scanned the production build in headless Chrome (6 scenarios: desktop, phone, phone + reduced motion, 1 Oct, 2060 and 2027 previews), scrolling the full page to fire every ScrollTrigger, and captured exceptions, console errors, hydration errors, overflow, hidden content and broken images.
+
+**Fixed**
+1. Hero count-up could animate to a stale number in a `&date=` preview with the same phase but a different year (e.g. 15 Sep 2027 showed 66): now keyed by phase + number. Verified: shows 67.
+2. Intro counted to the server's year, ignoring previews: now uses `readNow()` (live clock + preview offset).
+3. Slow phones: if JS started after ~5s, the CSS failsafe could hide the overlay mid-intro and leave the hero blank. Now the intro is skipped if JS starts after 4.5s; the failsafe is 8s; recordings always play the whole intro.
+4. Clock resyncs as soon as a background tab becomes visible (throttled timers made it lag).
+5. Era labels were inaccurate: the military era span covered the civilian Second Republic and ended in 1998; the First Republic ended in 1966, not 1965.
+6. Motto band flag meaning didn't match the source: now "Green for agriculture · White for peace and unity".
+7. "Ten moments" hardcoded: the count is now derived from the content.
+8. Footer said photos "remain the property" of authors, which is wrong for public-domain images: reworded.
+9. Stat-tile source links now align with the President tile.
+10. Dead code removed: `LAGOS_TIMEZONE_LABEL`, `SITE.shortName`, `SITE.tagline`, `getNextNamedMilestone` (+ its tests). Layout import order tidied.
+
+**Verified clean:** 0 exceptions, 0 console errors, 0 hydration errors, 0 horizontal overflow, 0 content left hidden after scroll, 10/10 images load, in every scenario. Generated CSS includes Safari prefixes. Tests 90/90.
+
+**Owner action:** Vercel Analytics isn't live in production (`/_vercel/insights/script.js` 404). Deploy the `<Analytics />` change and enable Analytics in the Vercel dashboard.
+
 ## 2026-09-27 — Timeline "today" card: live + fixed 1 October wording
 
 - **Bug (owner spotted):** on 1 October the card said "…the 66th anniversary *arrives* on 1 October 2026" on the day itself. New `getTodayCopy` has a celebration-day line ("Today, 1 October 2026, Nigeria celebrates 66 years of independence."), with tests for before, on and after the day, and 2060/2061.

@@ -59,6 +59,8 @@ Not hand-written: fetched, validated and shown with year + source. Values at bui
 | Hero footer / site footer | Motto "Unity and Faith, Peace and Progress" | 🔎 "Nigeria's national motto since 1978: 'Unity and Faith, Peace and Progress'" (Coat of arms of Nigeria) |
 | Clock intro | "the moment the Union Jack was lowered in Lagos" (midnight, 1 Oct 1960) | 🔎 "…in Lagos at midnight on 1 October 1960, when the Union Jack was lowered" |
 | Hero (celebration) | "the green-white-green was raised over a free Nigeria" | 🔎 "…replaced with Nigeria's green–white–green flag" |
+| Motto band | "Green for agriculture · White for peace and unity" | 🔎 "…green representing agriculture and white representing peace and unity" (Flag of Nigeria); was "Green for the land · White for peace", corrected 27 Sep |
+| Timeline era labels | "Independence & First Republic · 1960 – 1966"; "Military Rule & Civil War · 1966 – 1979 · 1983 – 1999"; "Fourth Republic · 1999 – today" | 🔎 corrected 27 Sep (was 1960–1965 and 1966–1998, which wrongly covered the civilian Second Republic, 1979–83, and ended military rule a year early) |
 | Flag strips | 36 strips = nod to 36 states (decorative, not a factual claim) | n/a |
 
 ## Candidates for later phases (not yet on site)

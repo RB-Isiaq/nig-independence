@@ -7,8 +7,8 @@ import { ScrollProgress } from "@/components/motion/scroll-progress.client";
 import { SmoothScroll } from "@/components/motion/smooth-scroll.client";
 import { IntroGateScript } from "@/components/sections/intro/intro-gate-script";
 import { getSiteUrl, SITE } from "@/content/site";
-import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
 const display = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -37,11 +37,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning: IntroGateScript adds classes to <html> before hydration.
-    <html
-      lang="en-NG"
-      className={`${display.variable} ${sans.variable} antialiased`}
-      suppressHydrationWarning
-    >
+    <html lang="en-NG" className={`${display.variable} ${sans.variable} antialiased`} suppressHydrationWarning>
       <head>
         <IntroGateScript />
       </head>

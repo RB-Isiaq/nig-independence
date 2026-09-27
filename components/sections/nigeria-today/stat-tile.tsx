@@ -57,7 +57,7 @@ export function StatTile({ stat }: { stat: ThenAndNow }) {
         href={stat.sourceUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="link mt-6 text-xs uppercase tracking-[0.15em] text-snow/45"
+        className="link mt-auto pt-6 text-xs uppercase tracking-[0.15em] text-snow/45"
         title={stat.label}
       >
         World Bank

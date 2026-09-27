@@ -72,8 +72,8 @@ export function SiteFooter({ serverNow }: { serverNow: string }) {
         </div>
 
         <p className="mt-14 text-sm text-snow/45">
-          © <CurrentYear serverNow={serverNow} /> {SITE.owner}. All rights reserved. Photos remain the property of their
-          credited authors.
+          © <CurrentYear serverNow={serverNow} /> {SITE.owner}. All rights reserved. Photos are credited to their authors
+          and used under the licences shown.
         </p>
       </Container>
     </footer>

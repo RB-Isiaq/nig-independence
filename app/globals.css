@@ -256,11 +256,16 @@ html.motion-gentle *::after {
   z-index: 100;
   background: var(--color-ink);
   /* Failsafe: never trap the page if JS stalls after the gate script ran. */
-  animation: intro-failsafe 0s 6s forwards;
+  animation: intro-failsafe 0s 8s forwards;
 }
 
 html.js:not(.intro-skip) .intro {
   display: block;
+}
+
+/* Recordings always play the whole intro, however slowly the page loaded. */
+html.record .intro {
+  animation: none;
 }
 
 .intro__panel {
