@@ -4,6 +4,16 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-27 — Production verified (launch-ready)
+
+https://nig-independence.vercel.app, after the audit deploy:
+- HTML 200 from the Vercel cache; title "Nigeria turns 66 · Countdown to the 66th Independence Day"; canonical + og:url set; OG image 200 PNG.
+- All audit fixes are live (flag meaning, era spans, derived moment count, footer wording, live figures, President tile).
+- Vercel Analytics script 200 (enabled).
+- Runtime scan (desktop, phone, phone + reduced motion, 1 Oct, 2060, live midnight flip from 23:59:52): 0 exceptions, 0 console errors or warnings, 0 overflow, 0 hidden content, 10/10 images.
+
+**Status:** launch-ready. Remaining work is the owner's content (plan/12-content-plan.md) and the optional post-launch backlog in 06-roadmap.
+
 ## 2026-09-27 — Full technical audit (pre-launch)
 
 Read every source file; ran lint, typecheck, tests and build; runtime-scanned the production build in headless Chrome (6 scenarios: desktop, phone, phone + reduced motion, 1 Oct, 2060 and 2027 previews), scrolling the full page to fire every ScrollTrigger, and captured exceptions, console errors, hydration errors, overflow, hidden content and broken images.
