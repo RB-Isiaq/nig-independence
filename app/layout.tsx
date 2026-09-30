@@ -6,8 +6,8 @@ import { RecordController } from "@/components/motion/record-controller.client";
 import { ScrollProgress } from "@/components/motion/scroll-progress.client";
 import { SmoothScroll } from "@/components/motion/smooth-scroll.client";
 import { IntroGateScript } from "@/components/sections/intro/intro-gate-script";
+import { SiteAnalytics } from "@/components/site-analytics.client";
 import { getSiteUrl, SITE } from "@/content/site";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <RecordController />
         <MotionNotice />
         {children}
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );

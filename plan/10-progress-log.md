@@ -4,6 +4,12 @@ Newest first. Each entry: what was done, what's verified, what's next, gotchas.
 
 ---
 
+## 2026-09-30 — Free per-platform attribution
+
+- Vercel UTM reports need Web Analytics Plus (paid). Instead, `SiteAnalytics` wraps `<Analytics>` with `beforeSend` → `lib/analytics/attribute-visit.ts`: `?utm_source=x` is recorded as the page `/from/x` (visible in the free Pages report); `?record` visits are dropped; everything else is unchanged. Sources are validated (`[a-z0-9_-]`, ≤32 chars).
+- Verified in dev debug mode: instagram → /from/instagram, tiktok → /from/tiktok, untagged → /, record → ignored. Tests 95/95; lint, typecheck and build green.
+- Note: page views before this deploy were recorded as plain `/`, so attribution starts from this deploy.
+
 ## 2026-09-27 — Production verified (launch-ready)
 
 https://nig-independence.vercel.app, after the audit deploy:

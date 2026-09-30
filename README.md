@@ -62,6 +62,16 @@ Keys: **Space** pauses and resumes the scroll, **R** restarts from the top.
 
 For vertical 9:16 videos, record on a phone, or use your browser's device toolbar (e.g. 390 × 844). `date` only affects the page in recording mode; the real page, title and share image always use the true date.
 
+## Analytics: which platform sent visitors
+
+Vercel Web Analytics is on. UTM reports need a paid add-on, so the site does the attribution itself, for free:
+
+- Share links tagged like `https://nig-independence.vercel.app/?utm_source=instagram` (or `tiktok`, `whatsapp`, …).
+- In Vercel → Analytics → **Pages**, each shows as its own row: `/from/instagram`, `/from/tiktok`, …
+- Recording-mode visits (`?record`) are not counted.
+
+The rule lives in [`lib/analytics/attribute-visit.ts`](lib/analytics/attribute-visit.ts).
+
 ## How it stays correct every year
 
 | Kind of content | Examples | How it stays correct |
